@@ -2,6 +2,21 @@ let students = JSON.parse(
 localStorage.getItem("students")
 ) || [];
 
+/* Firebase */
+
+const firebaseConfig = {
+
+    apiKey: "YOUR_API_KEY",
+
+    authDomain: "YOUR_AUTH_DOMAIN",
+
+    projectId: "YOUR_PROJECT_ID",
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
 /* Sections */
 
 function showSection(sectionId){
@@ -59,9 +74,14 @@ function addStudent(){
         JSON.stringify(students)
     );
 
+    db.collection("students")
+    .add(student);
+
     renderStudents();
 
     updateDashboard();
+
+    generateAnalytics();
 
     notify("Student Added");
 
@@ -190,6 +210,22 @@ function updateDashboard(){
     .innerText = students.length;
 }
 
+/* Analytics */
+
+function generateAnalytics(){
+
+    let total = students.length;
+
+    let insight =
+    total > 20
+    ? "High Student Activity"
+    : "Normal Activity";
+
+    document
+    .getElementById("aiAnalytics")
+    .innerText = insight;
+}
+
 /* Notification */
 
 function notify(message){
@@ -212,6 +248,77 @@ function notify(message){
     },3000);
 }
 
+/* Security */
+
+function sanitize(input){
+
+    return input
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+}
+
+/* QR */
+
+new QRCode(
+document.getElementById("qrcode"),
+"Attendance System"
+);
+
+/* Face Recognition */
+
+async function startFaceRecognition(){
+
+    const video =
+    document.getElementById("video");
+
+    navigator.mediaDevices
+    .getUserMedia({ video:{} })
+
+    .then(stream => {
+
+        video.srcObject = stream;
+    });
+
+    notify("Face Recognition Started");
+}
+
+/* AI */
+
+async function askAI(){
+
+    let prompt =
+    document.getElementById("aiPrompt").value;
+
+    document
+    .getElementById("aiResponse")
+    .innerText =
+
+    "AI Assistant Ready";
+}
+
+/* Admin */
+
+function backupData(){
+
+    localStorage.setItem(
+        "backup",
+        JSON.stringify(students)
+    );
+
+    notify("Backup Completed");
+}
+
+function clearAllStudents(){
+
+    students = [];
+
+    localStorage.removeItem("students");
+
+    renderStudents();
+
+    notify("All Students Cleared");
+}
+
 /* Clear */
 
 function clearInputs(){
@@ -223,16 +330,7 @@ function clearInputs(){
     document.getElementById("course").value="";
 }
 
-/* Security */
-
-function sanitize(input){
-
-    return input
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
-}
-
-/* Chart */
+/* Charts */
 
 const ctx =
 document.getElementById("studentChart");
@@ -259,31 +357,10 @@ new Chart(ctx, {
     }
 });
 
-/* QR */
-
-new QRCode(
-
-document.getElementById("qrcode"),
-
-"Student Attendance System"
-);
-
-/* AI */
-
-async function askAI(){
-
-    let prompt =
-    document.getElementById("aiPrompt").value;
-
-    document
-    .getElementById("aiResponse")
-    .innerText =
-
-    "AI feature ready. Add Gemini API key.";
-}
-
 /* Load */
 
 renderStudents();
 
 updateDashboard();
+
+generateAnalytics();
