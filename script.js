@@ -1,4 +1,8 @@
-/* Students Database */
+/* =========================
+   ADVANCED AI STUDENT MANAGEMENT SYSTEM
+========================= */
+
+/* Local Database */
 
 let students = JSON.parse(
 
@@ -6,7 +10,9 @@ localStorage.getItem("students")
 
 ) || [];
 
-/* Sections */
+/* =========================
+   SECTION NAVIGATION
+========================= */
 
 function showSection(sectionId){
 
@@ -23,27 +29,41 @@ function showSection(sectionId){
     .classList.add("active");
 }
 
-/* Add Student */
+/* =========================
+   ADD STUDENT
+========================= */
 
 function addStudent(){
 
     let name =
-    document.getElementById("name").value.trim();
+    document
+    .getElementById("name")
+    .value.trim();
 
     let email =
-    document.getElementById("email").value.trim();
+    document
+    .getElementById("email")
+    .value.trim();
 
     let course =
-    document.getElementById("course").value.trim();
+    document
+    .getElementById("course")
+    .value.trim();
 
-    if(name === "" ||
-       email === "" ||
-       course === ""){
+    /* Validation */
 
-        notify("Fill all fields");
+    if(
+        name === "" ||
+        email === "" ||
+        course === ""
+    ){
+
+        notify("Please fill all fields");
 
         return;
     }
+
+    /* Student Object */
 
     let student = {
 
@@ -56,7 +76,11 @@ function addStudent(){
         course:sanitize(course)
     };
 
+    /* Add */
+
     students.push(student);
+
+    /* Save */
 
     localStorage.setItem(
 
@@ -65,16 +89,22 @@ function addStudent(){
         JSON.stringify(students)
     );
 
+    /* Update UI */
+
     renderStudents();
 
     updateDashboard();
 
-    notify("Student Added");
+    updateChart();
+
+    notify("Student Added Successfully");
 
     clearInputs();
 }
 
-/* Render Students */
+/* =========================
+   RENDER STUDENTS
+========================= */
 
 function renderStudents(){
 
@@ -127,7 +157,9 @@ function renderStudents(){
     });
 }
 
-/* Edit Student */
+/* =========================
+   EDIT STUDENT
+========================= */
 
 function editStudent(id){
 
@@ -135,11 +167,15 @@ function editStudent(id){
     students.find(s => s.id === id);
 
     let name =
-    prompt("Edit Name", student.name);
+    prompt(
+        "Edit Student Name",
+        student.name
+    );
 
     if(name){
 
-        student.name = sanitize(name);
+        student.name =
+        sanitize(name);
 
         localStorage.setItem(
 
@@ -154,12 +190,16 @@ function editStudent(id){
     }
 }
 
-/* Delete Student */
+/* =========================
+   DELETE STUDENT
+========================= */
 
 function deleteStudent(id){
 
     students =
-    students.filter(s => s.id !== id);
+    students.filter(
+        s => s.id !== id
+    );
 
     localStorage.setItem(
 
@@ -172,10 +212,14 @@ function deleteStudent(id){
 
     updateDashboard();
 
+    updateChart();
+
     notify("Student Deleted");
 }
 
-/* Search */
+/* =========================
+   SEARCH STUDENT
+========================= */
 
 function searchStudent(){
 
@@ -194,15 +238,20 @@ function searchStudent(){
         if(index === 0) return;
 
         row.style.display =
+
         row.innerText
         .toLowerCase()
         .includes(input)
+
         ? ""
+
         : "none";
     });
 }
 
-/* Dashboard */
+/* =========================
+   UPDATE DASHBOARD
+========================= */
 
 function updateDashboard(){
 
@@ -211,7 +260,9 @@ function updateDashboard(){
     .innerText = students.length;
 }
 
-/* Notifications */
+/* =========================
+   NOTIFICATIONS
+========================= */
 
 function notify(message){
 
@@ -233,7 +284,9 @@ function notify(message){
     },3000);
 }
 
-/* Security */
+/* =========================
+   SECURITY VALIDATION
+========================= */
 
 function sanitize(input){
 
@@ -242,7 +295,9 @@ function sanitize(input){
     .replace(/>/g,"&gt;");
 }
 
-/* Clear Inputs */
+/* =========================
+   CLEAR INPUTS
+========================= */
 
 function clearInputs(){
 
@@ -251,16 +306,20 @@ function clearInputs(){
     document.getElementById("course").value="";
 }
 
-/* QR Attendance */
+/* =========================
+   QR ATTENDANCE
+========================= */
 
 new QRCode(
 
 document.getElementById("qrcode"),
 
-"Student Attendance System"
+"Advanced Student Attendance"
 );
 
-/* Face Recognition */
+/* =========================
+   FACE RECOGNITION
+========================= */
 
 async function startFaceRecognition(){
 
@@ -268,22 +327,28 @@ async function startFaceRecognition(){
     document.getElementById("video");
 
     navigator.mediaDevices
-    .getUserMedia({ video:{} })
+    .getUserMedia({ video:true })
 
     .then(stream => {
 
         video.srcObject = stream;
     });
 
-    notify("Face Recognition Started");
+    notify(
+        "Face Recognition Started"
+    );
 }
 
-/* AI Assistant */
+/* =========================
+   AI ASSISTANT
+========================= */
 
 async function askAI(){
 
     let prompt =
-    document.getElementById("aiPrompt").value;
+    document
+    .getElementById("aiPrompt")
+    .value;
 
     document
     .getElementById("aiResponse")
@@ -292,11 +357,14 @@ async function askAI(){
     "AI Assistant Ready: " + prompt;
 }
 
-/* Analytics */
+/* =========================
+   ANALYTICS CHART
+========================= */
 
 const ctx =
 document.getElementById("studentChart");
 
+let studentChart =
 new Chart(ctx, {
 
     type:"bar",
@@ -318,36 +386,92 @@ new Chart(ctx, {
             ],
 
             backgroundColor:[
+
                 "#06b6d4",
+
                 "#2563eb"
-            ]
+            ],
+
+            borderRadius:10
         }]
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+
+                labels:{
+
+                    color:"white"
+                }
+            }
+        },
+
+        scales:{
+
+            y:{
+
+                ticks:{
+
+                    color:"white"
+                }
+            },
+
+            x:{
+
+                ticks:{
+
+                    color:"white"
+                }
+            }
+        }
     }
 });
 
-/* Loader */
+/* Update Chart */
+
+function updateChart(){
+
+    studentChart.data.datasets[0]
+    .data[0] = students.length;
+
+    studentChart.update();
+}
+
+/* =========================
+   LOADER
+========================= */
 
 window.addEventListener("load", () => {
 
     setTimeout(() => {
 
-        document.getElementById("loader")
+        document
+        .getElementById("loader")
         .style.display = "none";
 
     },1500);
 });
 
-/* Dashboard Counter Animation */
+/* =========================
+   DASHBOARD COUNTER
+========================= */
 
 function animateCounter(id,target){
 
     let count = 0;
 
-    let interval = setInterval(() => {
+    let interval =
+    setInterval(() => {
 
         count++;
 
-        document.getElementById(id)
+        document
+        .getElementById(id)
         .innerText = count;
 
         if(count >= target){
@@ -363,8 +487,42 @@ animateCounter(
     students.length
 );
 
-/* Initial Load */
+/* =========================
+   DARK/LIGHT THEME
+========================= */
+
+function toggleTheme(){
+
+    document.body
+    .classList.toggle("light-theme");
+
+    notify("Theme Changed");
+}
+
+/* =========================
+   PWA SUPPORT
+========================= */
+
+if("serviceWorker" in navigator){
+
+    window.addEventListener("load", () => {
+
+        navigator.serviceWorker
+        .register("service-worker.js")
+
+        .then(() => {
+
+            console.log("PWA Ready");
+        });
+    });
+}
+
+/* =========================
+   INITIAL LOAD
+========================= */
 
 renderStudents();
 
 updateDashboard();
+
+updateChart();
