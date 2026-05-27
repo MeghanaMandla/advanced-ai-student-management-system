@@ -3,15 +3,13 @@ const CACHE_NAME = "studentms-cache-v1";
 const urlsToCache = [
 
   "/",
-
   "/index.html",
-
   "/style.css",
-
   "/script.js",
-
   "/manifest.json"
 ];
+
+/* Install */
 
 self.addEventListener("install", event => {
 
@@ -26,6 +24,8 @@ self.addEventListener("install", event => {
   );
 });
 
+/* Fetch */
+
 self.addEventListener("fetch", event => {
 
   event.respondWith(
@@ -34,4 +34,7 @@ self.addEventListener("fetch", event => {
 
     .then(response => {
 
-     
+      return response || fetch(event.request);
+    })
+  );
+});
