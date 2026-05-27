@@ -28,6 +28,16 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+<!-- Face Recognition -->
+
+<script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+
+<!-- EmailJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<link rel="manifest" href="manifest.json">
+
 </head>
 
 <body>
@@ -65,6 +75,11 @@
             AI Assistant
         </li>
 
+        <li onclick="showSection('admin')">
+            <i class="fa fa-user-shield"></i>
+            Admin
+        </li>
+
     </ul>
 
 </div>
@@ -73,7 +88,7 @@
 
 <div class="main">
 
-    <!-- Top -->
+    <!-- Topbar -->
 
     <div class="topbar">
 
@@ -106,6 +121,13 @@
             <div class="card">
                 <h3>Security</h3>
                 <p>Protected</p>
+            </div>
+
+            <div class="card">
+                <h3>AI Insights</h3>
+                <p id="aiAnalytics">
+                    Normal Activity
+                </p>
             </div>
 
         </div>
@@ -171,6 +193,18 @@
 
             <div id="qrcode"></div>
 
+            <video
+            id="video"
+            width="320"
+            height="240"
+            autoplay
+            muted>
+            </video>
+
+            <button onclick="startFaceRecognition()">
+                Start Face Attendance
+            </button>
+
         </div>
 
     </div>
@@ -207,6 +241,26 @@
             </button>
 
             <div id="aiResponse"></div>
+
+        </div>
+
+    </div>
+
+    <!-- Admin -->
+
+    <div id="admin" class="section">
+
+        <div class="table-card">
+
+            <h2>Admin Controls</h2>
+
+            <button onclick="backupData()">
+                Backup Database
+            </button>
+
+            <button onclick="clearAllStudents()">
+                Clear Students
+            </button>
 
         </div>
 
