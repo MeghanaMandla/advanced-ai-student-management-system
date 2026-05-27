@@ -4,9 +4,12 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<title>Advanced AI Student Management System</title>
+<title>
+Advanced AI Student Management System
+</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -15,8 +18,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-<script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
 
 <link rel="manifest" href="manifest.json">
 
@@ -91,6 +92,8 @@
 
 <div class="main">
 
+    <!-- Topbar -->
+
     <div class="topbar">
 
         <h1>Advanced AI Dashboard</h1>
@@ -105,28 +108,41 @@
 
     <!-- Dashboard -->
 
-    <div id="dashboard" class="section active">
+    <div id="dashboard"
+    class="section active">
 
         <div class="cards">
 
             <div class="card">
+
                 <h3>Total Students</h3>
+
                 <p id="totalStudents">0</p>
+
             </div>
 
             <div class="card">
+
                 <h3>Attendance</h3>
+
                 <p>98%</p>
+
             </div>
 
             <div class="card">
+
                 <h3>Security</h3>
+
                 <p>Protected</p>
+
             </div>
 
             <div class="card">
+
                 <h3>AI Insights</h3>
-                <p>Active</p>
+
+                <p>System Active</p>
+
             </div>
 
         </div>
@@ -135,7 +151,8 @@
 
     <!-- Students -->
 
-    <div id="students" class="section">
+    <div id="students"
+    class="section">
 
         <div class="table-card">
 
@@ -143,15 +160,18 @@
 
             <div class="form-group">
 
-                <input type="text"
+                <input
+                type="text"
                 id="name"
                 placeholder="Student Name">
 
-                <input type="email"
+                <input
+                type="email"
                 id="email"
                 placeholder="Email">
 
-                <input type="text"
+                <input
+                type="text"
                 id="course"
                 placeholder="Course">
 
@@ -170,139 +190,9 @@
             <table id="studentTable">
 
                 <tr>
+
                     <th>Name</th>
+
                     <th>Email</th>
-                    <th>Course</th>
-                    <th>Action</th>
-                </tr>
 
-            </table>
-
-        </div>
-
-    </div>
-
-    <!-- Attendance -->
-
-    <div id="attendance" class="section">
-
-        <div class="table-card">
-
-            <h2>QR Attendance</h2>
-
-            <div id="qrcode"></div>
-
-            <video
-            id="video"
-            width="320"
-            height="240"
-            autoplay
-            muted>
-            </video>
-
-            <button onclick="startFaceRecognition()">
-                Start Face Attendance
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- Analytics -->
-
-    <div id="analytics" class="section">
-
-        <div class="table-card">
-
-            <canvas id="studentChart"></canvas>
-
-        </div>
-
-    </div>
-
-    <!-- AI -->
-
-    <div id="ai" class="section">
-
-        <div class="table-card">
-
-            <h2>AI Assistant</h2>
-
-            <input
-            type="text"
-            id="aiPrompt"
-            placeholder="Ask AI...">
-
-            <button onclick="askAI()">
-                Ask AI
-            </button>
-
-            <div id="aiResponse"></div>
-
-        </div>
-
-    </div>
-
-    <!-- Profile -->
-
-    <div id="profile" class="section">
-
-        <div class="table-card">
-
-            <div class="profile-box">
-
-                <img
-                src="https://i.imgur.com/2DhmtJ4.png"
-                class="profile-img">
-
-                <h2>Admin User</h2>
-
-                <p>AI Powered Administrator</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Support -->
-
-    <div id="support" class="section">
-
-        <div class="table-card">
-
-            <h2>Help & Support</h2>
-
-            <p>Email: support@studentms.com</p>
-
-            <p>Phone: +91 9876543210</p>
-
-            <button onclick="notify('Support Request Sent')">
-                Contact Support
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-<button class="floating-btn"
-onclick="showSection('students')">
-
-    <i class="fa fa-plus"></i>
-
-</button>
-
-<footer>
-
-    <p>
-        © 2026 Advanced AI Student Management System
-    </p>
-
-</footer>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+                   
