@@ -1,9 +1,16 @@
 {
-  "name":"Student Management System",
+  "name":"Advanced AI Student Management System",
   "short_name":"StudentMS",
   "start_url":"./index.html",
   "display":"standalone",
   "background_color":"#0f172a",
   "theme_color":"#2563eb",
-  "icons":[]
+  "orientation":"portrait",
+  "icons":[
+    {
+      "src":"https://cdn-icons-png.flaticon.com/512/3135/3135755.png",
+      "sizes":"192x192",
+      "type":"image/png"
+    }
+  ]
 }
