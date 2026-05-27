@@ -1,21 +1,10 @@
+/* Students Database */
+
 let students = JSON.parse(
+
 localStorage.getItem("students")
+
 ) || [];
-
-/* Firebase */
-
-const firebaseConfig = {
-
-    apiKey: "YOUR_API_KEY",
-
-    authDomain: "YOUR_AUTH_DOMAIN",
-
-    projectId: "YOUR_PROJECT_ID",
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
 
 /* Sections */
 
@@ -70,25 +59,22 @@ function addStudent(){
     students.push(student);
 
     localStorage.setItem(
+
         "students",
+
         JSON.stringify(students)
     );
-
-    db.collection("students")
-    .add(student);
 
     renderStudents();
 
     updateDashboard();
-
-    generateAnalytics();
 
     notify("Student Added");
 
     clearInputs();
 }
 
-/* Render */
+/* Render Students */
 
 function renderStudents(){
 
@@ -98,10 +84,15 @@ function renderStudents(){
     table.innerHTML = `
 
     <tr>
+
         <th>Name</th>
+
         <th>Email</th>
+
         <th>Course</th>
+
         <th>Action</th>
+
     </tr>
     `;
 
@@ -120,11 +111,15 @@ function renderStudents(){
         <td>
 
         <button onclick="editStudent(${student.id})">
+
         Edit
+
         </button>
 
         <button onclick="deleteStudent(${student.id})">
+
         Delete
+
         </button>
 
         </td>
@@ -132,7 +127,7 @@ function renderStudents(){
     });
 }
 
-/* Edit */
+/* Edit Student */
 
 function editStudent(id){
 
@@ -147,17 +142,19 @@ function editStudent(id){
         student.name = sanitize(name);
 
         localStorage.setItem(
+
             "students",
+
             JSON.stringify(students)
         );
 
         renderStudents();
 
-        notify("Updated");
+        notify("Student Updated");
     }
 }
 
-/* Delete */
+/* Delete Student */
 
 function deleteStudent(id){
 
@@ -165,7 +162,9 @@ function deleteStudent(id){
     students.filter(s => s.id !== id);
 
     localStorage.setItem(
+
         "students",
+
         JSON.stringify(students)
     );
 
@@ -173,7 +172,7 @@ function deleteStudent(id){
 
     updateDashboard();
 
-    notify("Deleted");
+    notify("Student Deleted");
 }
 
 /* Search */
@@ -186,7 +185,9 @@ function searchStudent(){
     .value.toLowerCase();
 
     let rows =
-    document.querySelectorAll("#studentTable tr");
+    document.querySelectorAll(
+        "#studentTable tr"
+    );
 
     rows.forEach((row,index) => {
 
@@ -210,23 +211,7 @@ function updateDashboard(){
     .innerText = students.length;
 }
 
-/* Analytics */
-
-function generateAnalytics(){
-
-    let total = students.length;
-
-    let insight =
-    total > 20
-    ? "High Student Activity"
-    : "Normal Activity";
-
-    document
-    .getElementById("aiAnalytics")
-    .innerText = insight;
-}
-
-/* Notification */
+/* Notifications */
 
 function notify(message){
 
@@ -257,11 +242,22 @@ function sanitize(input){
     .replace(/>/g,"&gt;");
 }
 
-/* QR */
+/* Clear Inputs */
+
+function clearInputs(){
+
+    document.getElementById("name").value="";
+    document.getElementById("email").value="";
+    document.getElementById("course").value="";
+}
+
+/* QR Attendance */
 
 new QRCode(
+
 document.getElementById("qrcode"),
-"Attendance System"
+
+"Student Attendance System"
 );
 
 /* Face Recognition */
@@ -282,7 +278,7 @@ async function startFaceRecognition(){
     notify("Face Recognition Started");
 }
 
-/* AI */
+/* AI Assistant */
 
 async function askAI(){
 
@@ -293,44 +289,10 @@ async function askAI(){
     .getElementById("aiResponse")
     .innerText =
 
-    "AI Assistant Ready";
+    "AI Assistant Ready: " + prompt;
 }
 
-/* Admin */
-
-function backupData(){
-
-    localStorage.setItem(
-        "backup",
-        JSON.stringify(students)
-    );
-
-    notify("Backup Completed");
-}
-
-function clearAllStudents(){
-
-    students = [];
-
-    localStorage.removeItem("students");
-
-    renderStudents();
-
-    notify("All Students Cleared");
-}
-
-/* Clear */
-
-function clearInputs(){
-
-    document.getElementById("name").value="";
-
-    document.getElementById("email").value="";
-
-    document.getElementById("course").value="";
-}
-
-/* Charts */
+/* Analytics */
 
 const ctx =
 document.getElementById("studentChart");
@@ -341,26 +303,68 @@ new Chart(ctx, {
 
     data:{
 
-        labels:["Students","Courses"],
+        labels:[
+            "Students",
+            "Courses"
+        ],
 
         datasets:[{
 
             label:"Analytics",
 
-            data:[students.length,12],
+            data:[
+                students.length,
+                12
+            ],
 
             backgroundColor:[
-                "#2563eb",
-                "#06b6d4"
+                "#06b6d4",
+                "#2563eb"
             ]
         }]
     }
 });
 
-/* Load */
+/* Loader */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        document.getElementById("loader")
+        .style.display = "none";
+
+    },1500);
+});
+
+/* Dashboard Counter Animation */
+
+function animateCounter(id,target){
+
+    let count = 0;
+
+    let interval = setInterval(() => {
+
+        count++;
+
+        document.getElementById(id)
+        .innerText = count;
+
+        if(count >= target){
+
+            clearInterval(interval);
+        }
+
+    },30);
+}
+
+animateCounter(
+    "totalStudents",
+    students.length
+);
+
+/* Initial Load */
 
 renderStudents();
 
 updateDashboard();
-
-generateAnalytics();
