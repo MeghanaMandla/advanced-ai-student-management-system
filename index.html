@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
@@ -11,29 +12,24 @@ content="width=device-width, initial-scale=1.0">
 Advanced AI Student Management System
 </title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+href="style.css">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-<link rel="manifest" href="manifest.json">
+<link rel="manifest"
+href="manifest.json">
 
 </head>
 
 <body>
 
-<!-- Loader -->
-
-<div id="loader">
-
-    <div class="spinner"></div>
-
-</div>
-
-<!-- Sidebar -->
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -50,53 +46,76 @@ Advanced AI Student Management System
     <ul>
 
         <li onclick="showSection('dashboard')">
+
             <i class="fa fa-home"></i>
+
             Dashboard
+
         </li>
 
         <li onclick="showSection('students')">
+
             <i class="fa fa-user-graduate"></i>
+
             Students
+
         </li>
 
         <li onclick="showSection('attendance')">
+
             <i class="fa fa-calendar-check"></i>
+
             Attendance
+
         </li>
 
         <li onclick="showSection('analytics')">
+
             <i class="fa fa-chart-line"></i>
+
             Analytics
+
         </li>
 
         <li onclick="showSection('ai')">
+
             <i class="fa fa-robot"></i>
+
             AI Assistant
+
         </li>
 
         <li onclick="showSection('profile')">
+
             <i class="fa fa-user"></i>
+
             Profile
+
         </li>
 
         <li onclick="showSection('support')">
+
             <i class="fa fa-headset"></i>
+
             Support
+
         </li>
 
     </ul>
 
 </div>
 
-<!-- Main -->
+<!-- MAIN -->
 
 <div class="main">
 
-    <!-- Topbar -->
+    <!-- TOPBAR -->
 
     <div class="topbar">
 
-        <h1>Advanced AI Dashboard</h1>
+        <h1>
+        Advanced AI Dashboard
+        </h1>
 
         <input
         type="text"
@@ -106,7 +125,7 @@ Advanced AI Student Management System
 
     </div>
 
-    <!-- Dashboard -->
+    <!-- DASHBOARD -->
 
     <div id="dashboard"
     class="section active">
@@ -117,7 +136,9 @@ Advanced AI Student Management System
 
                 <h3>Total Students</h3>
 
-                <p id="totalStudents">0</p>
+                <p id="totalStudents">
+                0
+                </p>
 
             </div>
 
@@ -149,7 +170,7 @@ Advanced AI Student Management System
 
     </div>
 
-    <!-- Students -->
+    <!-- STUDENTS -->
 
     <div id="students"
     class="section">
@@ -175,8 +196,11 @@ Advanced AI Student Management System
                 id="course"
                 placeholder="Course">
 
-                <button onclick="addStudent()">
-                    Add Student
+                <button
+                onclick="addStudent()">
+
+                Add Student
+
                 </button>
 
             </div>
@@ -195,4 +219,141 @@ Advanced AI Student Management System
 
                     <th>Email</th>
 
-                   
+                    <th>Course</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ATTENDANCE -->
+
+    <div id="attendance"
+    class="section">
+
+        <div class="table-card">
+
+            <h2>QR Attendance</h2>
+
+            <div id="qrcode"></div>
+
+        </div>
+
+    </div>
+
+    <!-- ANALYTICS -->
+
+    <div id="analytics"
+    class="section">
+
+        <div class="table-card">
+
+            <canvas id="studentChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <!-- AI -->
+
+    <div id="ai"
+    class="section">
+
+        <div class="table-card">
+
+            <h2>AI Assistant</h2>
+
+            <input
+            type="text"
+            id="aiPrompt"
+            placeholder="Ask AI...">
+
+            <button
+            onclick="askAI()">
+
+            Ask AI
+
+            </button>
+
+            <div id="aiResponse"></div>
+
+        </div>
+
+    </div>
+
+    <!-- PROFILE -->
+
+    <div id="profile"
+    class="section">
+
+        <div class="table-card">
+
+            <div class="profile-box">
+
+                <img
+                src="https://i.imgur.com/2DhmtJ4.png"
+                class="profile-img">
+
+                <h2>Admin User</h2>
+
+                <p>
+                AI Powered Administrator
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SUPPORT -->
+
+    <div id="support"
+    class="section">
+
+        <div class="table-card">
+
+            <h2>Help & Support</h2>
+
+            <p>
+            Email:
+            support@studentms.com
+            </p>
+
+            <p>
+            Phone:
+            +91 9876543210
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FLOATING BUTTON -->
+
+<button class="floating-btn"
+onclick="showSection('students')">
+
+<i class="fa fa-plus"></i>
+
+</button>
+
+<footer>
+
+<p>
+© 2026 Advanced AI Student Management System
+</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
