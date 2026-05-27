@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Advanced AI Student Management System</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- Firebase -->
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<!-- Charts -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- QR -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>StudentMS AI</h2>
+
+    <ul>
+
+        <li onclick="showSection('dashboard')">
+            <i class="fa fa-home"></i>
+            Dashboard
+        </li>
+
+        <li onclick="showSection('students')">
+            <i class="fa fa-user-graduate"></i>
+            Students
+        </li>
+
+        <li onclick="showSection('attendance')">
+            <i class="fa fa-calendar-check"></i>
+            Attendance
+        </li>
+
+        <li onclick="showSection('analytics')">
+            <i class="fa fa-chart-line"></i>
+            Analytics
+        </li>
+
+        <li onclick="showSection('ai')">
+            <i class="fa fa-robot"></i>
+            AI Assistant
+        </li>
+
+    </ul>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+    <!-- Top -->
+
+    <div class="topbar">
+
+        <h1>Advanced AI Student Dashboard</h1>
+
+        <input
+        type="text"
+        id="search"
+        placeholder="Search Student..."
+        onkeyup="searchStudent()">
+
+    </div>
+
+    <!-- Dashboard -->
+
+    <div id="dashboard" class="section active">
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Total Students</h3>
+                <p id="totalStudents">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Attendance</h3>
+                <p>98%</p>
+            </div>
+
+            <div class="card">
+                <h3>Security</h3>
+                <p>Protected</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Students -->
+
+    <div id="students" class="section">
+
+        <div class="table-card">
+
+            <h2>Add Student</h2>
+
+            <div class="form-group">
+
+                <input type="text"
+                id="name"
+                placeholder="Student Name">
+
+                <input type="email"
+                id="email"
+                placeholder="Email">
+
+                <input type="text"
+                id="course"
+                placeholder="Course">
+
+                <button onclick="addStudent()">
+                    Add Student
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="table-card">
+
+            <h2>Student Records</h2>
+
+            <table id="studentTable">
+
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th>Action</th>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Attendance -->
+
+    <div id="attendance" class="section">
+
+        <div class="table-card">
+
+            <h2>QR Attendance</h2>
+
+            <div id="qrcode"></div>
+
+        </div>
+
+    </div>
+
+    <!-- Analytics -->
+
+    <div id="analytics" class="section">
+
+        <div class="table-card">
+
+            <h2>Student Analytics</h2>
+
+            <canvas id="studentChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <!-- AI -->
+
+    <div id="ai" class="section">
+
+        <div class="table-card">
+
+            <h2>AI Assistant</h2>
+
+            <input
+            type="text"
+            id="aiPrompt"
+            placeholder="Ask AI...">
+
+            <button onclick="askAI()">
+                Ask AI
+            </button>
+
+            <div id="aiResponse"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
